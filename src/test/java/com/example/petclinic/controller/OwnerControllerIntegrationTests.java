@@ -45,8 +45,8 @@ public class OwnerControllerIntegrationTests implements ApplicationContextAware 
     public void saveAndFindOwner() {
 
         // exercise
-        controller.saveOwner(owner1);
-        Owner actual = controller.getOwner(1L);
+        controller.add(owner1);
+        Owner actual = controller.get(1L);
 
         // assert
         assertEquals(owner1, actual);
@@ -57,8 +57,8 @@ public class OwnerControllerIntegrationTests implements ApplicationContextAware 
     public void saveAndModify() {
 
         // exercise
-        controller.saveOwner(owner1);
-        Owner actual = controller.getOwner(1L);
+        controller.add(owner1);
+        Owner actual = controller.get(1L);
 
         // assert
         assertEquals(owner1, actual);
@@ -66,8 +66,8 @@ public class OwnerControllerIntegrationTests implements ApplicationContextAware 
         // exercise
         String expectedName = "Homer";
         owner1.setName(expectedName);
-        controller.saveOwner(owner1);
-        actual = controller.getOwner(1L);
+        controller.add(owner1);
+        actual = controller.get(1L);
 
         // assert
         assertEquals(owner1, actual);
@@ -81,15 +81,15 @@ public class OwnerControllerIntegrationTests implements ApplicationContextAware 
     public void saveAndDeleteOwner() {
 
         // exercise
-        controller.saveOwner(owner1);
-        Owner actual = controller.getOwner(1L);
+        controller.add(owner1);
+        Owner actual = controller.get(1L);
 
         // assert
         assertEquals(owner1, actual);
 
         // exercise
-        controller.deleteOwner(owner1);
-        actual = controller.getOwner(1L);
+        controller.delete(owner1);
+        actual = controller.get(1L);
 
         // assert
         assertNull(actual);
@@ -102,12 +102,12 @@ public class OwnerControllerIntegrationTests implements ApplicationContextAware 
     public void findAllOwners() {
 
         // exercise
-        controller.saveOwner(owner1);
-        controller.saveOwner(owner2);
-        controller.saveOwner(owner3);
-        controller.saveOwner(owner4);
+        controller.add(owner1);
+        controller.add(owner2);
+        controller.add(owner3);
+        controller.add(owner4);
 
-        int actual = controller.getAllOwners().size();
+        int actual = controller.getAll().size();
 
         // assert
         assertEquals(4, actual);

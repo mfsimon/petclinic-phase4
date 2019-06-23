@@ -1,50 +1,40 @@
-# PetClinic Phase 3
+# PetClinic Phase 4
 
 #### Overview
-In this phase of the project, we convert the code from phase 2 to use a real database.
-We're going to use an in memory database to start with (H2), then switch to MySQL once your code is working with H2. 
+In this phase of the project, we convert the code from phase 3 to a RESTful service using Spring REST services. 
 
 [PetClinic Reference Application](http://petclinic.cognizantacademy.com)
 
-#### What You Are Given
 
-* Code for the `OwnerController` and `PetController`
-* Code for the `OwnerService` and `PetService`
-* Code for the `OwnerRepository` and `PetRepository`
-* Models for `Owner`, `Pet` and `PetType`
-* Modified driver class that works with the new models.
+#### What You Are Given
+* Code for the controllers - `BasicController`, `OwnerController`, `PetController`, `VisitController`, `VetController`
+* Code for the services - `BasicService`, `OwnerService`, `PetService`, `VisitService`, `VetService`
+* Code for the repositories - `OwnerRepository`, `PetRepository`, `VisitRepository`, `VetRepository`
+* Code for the models - `Owner`, `Pet`, `PetType`, `Visit`, `Vet` and `Speciality`
+* A driver class - `PetClinicDriver`
 
 #### What You Need To Complete
-Complete the following steps to add a real database.  
+* Modify each of your child Controller classes to implement REST endpoints for each of the methods.
+* Each controller will have it's own base URL.
+* Each method within each controller will follow the same naming convention for endpoints.
+- `\add`
+- `\get`
+- `\change`
+- `\remove`
+- `\getall`
 
-* Delete the following classes from your code completely:
-- `FakeDatabase`
-- `Modifiable`
-- `CrudRepository`
-
-* If you don't have them complete, continue to implement controllers, services and repositories for each of the models (`Pet`, `Visit`, `Vet`).
-* Modify your models to use JPA.  Use the existing models and the data model we developed as a guide.
-* Change the type of the id field in each of your models to use a `Long`.
-* Modify your repositories - change the classes to interfaces and have them extend CrudRepository.  Be sure to set the proper generic type for the CrudRepository.  Use the existing repositories as a guide.
-* Copy the properties from this application.properties file to yours.  There are several JPA and Hibernate settings in them.
-
-###### Patterns Used
-
-* MVC
-* 3-Tier application
-* Polymorphism (inheritance)
-* Designing to interfaces
-* Spring Data JPA
+* Each endpoint will use a @RequestParam to receive data from Postman.
 
 ###### Frameworks Used
 * Spring
 * Spring Boot
 * Spring Data JPA
 * Hibernate
+* Spring REST
 
 ###### Spring Annotations Used
 * @SpringBootApplication
-* @Controller
+* @RestController
 * @Service
 * @Entity
 * @Table
@@ -53,33 +43,26 @@ Complete the following steps to add a real database.
 * @OneToMany
 * @ManyToOne
 * @JoinColumn
-
+* @BodyMapping
+* @GetMapping
+* @PostMapping
+* @ResponseBody
+* @RequestMapping
+* @RequestParam
+* @PathVariable
 
 ###### Bonus Activity 1 (easy)
-* Add an inner builder class to each of your models.
-* Use an IntelliJ plugin to accomplish this.
-* Goto Preferences -> Plugins -> Marketplace and search for Builder Generator.
-* Install the plugin and restart IntelliJ.
-* Generate a builder by navigating to the class you want to add the builder to and navigate to Code -> Generate.
-* Select Builder.
-* Select Inner Builder then select OK.
-* Add a public static method called builder() just above the new inner class.
-* Use the Owner and Pet classes as a model to complete.
-* Use the new builder in your driver to create some new objects.
-* Use the existing driver code in this code example as a template.
+* Switch the `\get` endpoint(s) to use a @PathVariable instead of a @RequestParam by referencing the tutorial below.
+* [Spring @RequestParam Annotation](https://www.baeldung.com/spring-request-param)
 
-###### Bonus Activity 2 (easy) 
-* Switch the database to use your MySQL instance.
-* In the properties file, comment out the H2 settings.
-* In the properties file, uncomment the MySQL settings.
-* In the build file (pom.xml), uncomment the dependency for the driver library (mysql-connector-java).
+###### Bonus Activity 2 (medium)
+* Add exception handling to your REST service by referencing the tutorial below.
+* [Error Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
 
-###### Bonus Activity 2 (hard)
-* Implement integration tests for the `PetController`, `VisitController` and `VetController` classes.
-* You'll have to have complete code for the visit and vet sequences.
-* Use the code in `OwnerControllerIntegrationTests` as a template.
+###### Bonus Activity 3 (hard)
+* Create a custom White Label error page in your REST service by referencing the tutorial below.
+* [Customize Whitelabel Error Page](https://www.baeldung.com/spring-boot-custom-error-page)
 
 #### Notes
 * Dependencies have already been added for you in the pom.xml file for this phase.  You shouldn't have to modify or add anything to your build file (pom.xml), but feel free to as needed.
 * We are NOT creating a front end for this application.  The `PetClinicDriver` acts as the front end (or view) for this application. Feel free to add to the driver as needed.
-* In this phase, don't worry about handling errors.

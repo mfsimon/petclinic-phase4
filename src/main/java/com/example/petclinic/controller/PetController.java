@@ -1,6 +1,5 @@
 package com.example.petclinic.controller;
 
-
 import com.example.petclinic.model.Owner;
 import com.example.petclinic.model.Pet;
 import com.example.petclinic.service.PetService;
@@ -9,51 +8,53 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 @Controller
-public class PetController {
+public class PetController implements BasicController<Pet> {
 
     private PetService petService;
 
     public PetController(PetService petService) {
+
         this.petService = petService;
     }
 
-    public Pet savePet(Pet pet) {
+    @Override
+    public Pet add(Pet pet) {
 
-        Pet result = this.petService.savePet(pet);
-        return result;
+        return this.petService.add(pet);
     }
 
-    public Pet getPet(Long id) {
+    @Override
+    public Pet get(Long id) {
 
-        Pet result = this.petService.getPet(id);
-        return result;
+        return this.petService.get(id);
+    }
+
+    @Override
+    public Pet modify(Pet pet) {
+
+        return this.petService.modify(pet);
+    }
+
+    @Override
+    public boolean delete(Pet pet) {
+
+        return this.petService.delete(pet);
+    }
+
+    @Override
+    public List<Pet> getAll() {
+
+        return this.petService.getAll();
+
+    }
+
+    public List<Pet> getAllPetsForOwner(Owner owner) {
+
+        return this.petService.getAllPetsForOwner(owner);
     }
 
     public List<Pet> getPetByName(String name) {
+
         return this.petService.getPetByName(name);
-    }
-
-    public Pet modifyPet(Pet pet) {
-
-        Pet result = this.petService.modifyPet(pet);
-        return result;
-    }
-
-    public boolean deletePet(Pet pet) {
-
-        boolean result = this.petService.deletePet(pet);
-        return result;
-    }
-
-
-    public List<Pet> getAllPets() {
-
-        List<Pet> result = this.petService.getAll();
-        return result;
-
-    }
-
-    public Object getAllPetsForOwner(Owner owner) {
-        return this.petService.getAllPetsForOwner(owner);
     }
 }

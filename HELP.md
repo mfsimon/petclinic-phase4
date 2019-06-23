@@ -8,6 +8,7 @@ For further reference, please consider the following official documentation:
 * [Official Spring 5 Documentation](https://docs.spring.io/spring/docs/5.0.0.M5/spring-framework-reference/html/overview.html)
 * [Official Spring Data JPA Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
 * [Official Spring Boot Reference Guide](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+* [Official Spring Boot Project Page](https://spring.io/projects/spring-boot)
 
 ### Guides
 The following guides illustrate how to use some features and patterns applied in this phase:
@@ -27,6 +28,7 @@ The following guides illustrate how to use some features and patterns applied in
 * [Spring Boot Features](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-spring-application.htmlhtml)
 * [Lambdas and Closures](https://stackoverflow.com/questions/220658/what-is-the-difference-between-a-closure-and-a-lambda)
 * [Spring Boot Demos (Baeldung)](https://baeldung.com/spring-boot)
+* [Controller, Service, Repository Pattern](https://medium.com/@erwinalberto/part-3-spring-boot-components-controller-service-persistence-dao-7e8c8f1c844b)
 
 ###### Phase 3 Links
 * [Aggregation vs Composition](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-aggregation-vs-composition/)
@@ -38,4 +40,10 @@ The following guides illustrate how to use some features and patterns applied in
 * [Persisting Enumerated Types in JPA](https://www.baeldung.com/jpa-persisting-enums-in-jpa)
 * [Persisting Collection of Enumerated Types in JPA](https://stackoverflow.com/questions/416208/jpa-map-collection-of-enums)
 
+###### Phase 4 Links
+* [Spring REST Getting Started Guide](https://spring.io/guides/gs/rest-service/)
+* [REST with Spring Tutorials (Baeldung)](https://www.baeldung.com/rest-with-spring-series)
+* [Spring @RequestParam Annotation](https://www.baeldung.com/spring-request-param)
+* [Error Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
+* [Customize Whitelabel Error Page](https://www.baeldung.com/spring-boot-custom-error-page)
 

@@ -7,8 +7,8 @@
     <artifactId>petclinic</artifactId>
     <version>1.0.0</version>
 
-    <name>PetClinic Phase 3</name>
-    <description>PetClinic Phase 3</description>
+    <name>PetClinic Phase 4</name>
+    <description>PetClinic Phase 4</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

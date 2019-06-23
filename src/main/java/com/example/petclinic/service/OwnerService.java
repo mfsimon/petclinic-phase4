@@ -2,100 +2,57 @@ package com.example.petclinic.service;
 
 import com.example.petclinic.model.Owner;
 import com.example.petclinic.repository.OwnerRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Owner Service
- */
 @Service
-public class OwnerService {
-
-    private static final Logger logger = LoggerFactory.getLogger(OwnerService.class.getName());
+public class OwnerService implements BasicService<Owner> {
 
     private OwnerRepository ownerRepository;
 
     public OwnerService(OwnerRepository ownerRepository) {
+
         this.ownerRepository = ownerRepository;
     }
 
-    /**
-     * Basic create operation.
-     *
-     * @param owner
-     * @return
-     */
-    public Owner saveOwner(Owner owner) {
+    @Override
+    public Owner add(Owner owner) {
 
-        Owner result = this.ownerRepository.save(owner);
-        return result;
+        return this.ownerRepository.save(owner);
     }
 
-    /**
-     * Basic read operation.
-     *
-     * @param id
-     * @return
-     */
-    public Owner getOwner(Long id) {
+    @Override
+    public Owner get(Long id) {
 
         Optional optional = this.ownerRepository.findById(id);
 
-        Owner owner = null;
+        Owner result = null;
         if (optional.isPresent()) {
-            owner = (Owner) optional.get();
-        } else {
-            logger.warn(new StringBuilder().append("No owner exists for id [").append(id).append("].").toString());
+            result = (Owner) optional.get();
         }
-
-        return owner;
-
-    }
-
-    /**
-     * Basic update operation.
-     *
-     * @param owner
-     * @return
-     */
-    public Owner modifyOwner(Owner owner) {
-
-        Owner result = this.ownerRepository.save(owner);
         return result;
     }
 
-    /**
-     * Basic delete operation.
-     *
-     * @param owner
-     * @return
-     */
-    public boolean deleteOwner(Owner owner) {
+    @Override
+    public Owner modify(Owner owner) {
 
-        // delete return type is void from the repository
-        // we hardcode the boolean return value here
+        return this.ownerRepository.save(owner);
+    }
+
+    @Override
+    public boolean delete(Owner owner) {
+
         this.ownerRepository.delete(owner);
         return true;
     }
 
-    /**
-     * Specific type of
-     *
-     * @return
-     */
+    @Override
     public List<Owner> getAll() {
 
-        // A narrowing cast is required because the findAll method returns an Iterable<Owner> object
-        List<Owner> result = (List<Owner>) ownerRepository.findAll();
-        return result;
+        return (List<Owner>) ownerRepository.findAll();
     }
 
 
-    public List<Owner> getOwnerByName(String name) {
-        return this.ownerRepository.getOwnerByName(name);
-    }
 }

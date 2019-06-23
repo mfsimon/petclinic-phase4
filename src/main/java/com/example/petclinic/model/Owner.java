@@ -26,8 +26,7 @@ public class Owner {
             mappedBy = "owner",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
+            fetch = FetchType.LAZY)
     private List<Pet> pets = new ArrayList<>();
 
     protected Owner() {

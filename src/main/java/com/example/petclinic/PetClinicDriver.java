@@ -47,12 +47,12 @@ public class PetClinicDriver {
         Owner owner3 = Owner.builder().withName("Bart Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
         Owner owner4 = Owner.builder().withName("Lisa Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
 
-        ownerController.saveOwner(owner1);
-        ownerController.saveOwner(owner2);
-        ownerController.saveOwner(owner3);
-        ownerController.saveOwner(owner4);
+        ownerController.add(owner1);
+        ownerController.add(owner2);
+        ownerController.add(owner3);
+        ownerController.add(owner4);
 
-        List<Owner> owners = ownerController.getAllOwners();
+        List<Owner> owners = ownerController.getAll();
 
         display(owners);
 
@@ -79,22 +79,22 @@ public class PetClinicDriver {
         Pet pet13 = Pet.builder().withName("Snowball IV").withBirthDate(new Date()).withPetType(PetType.CAT).withOwner(owner4).build();
         Pet pet14 = Pet.builder().withName("Princess").withBirthDate(new Date()).withPetType(PetType.HORSE).withOwner(owner4).build();
 
-        petController.savePet(pet1);
-        petController.savePet(pet2);
-        petController.savePet(pet3);
-        petController.savePet(pet4);
-        petController.savePet(pet5);
-        petController.savePet(pet6);
-        petController.savePet(pet7);
-        petController.savePet(pet8);
-        petController.savePet(pet9);
-        petController.savePet(pet10);
-        petController.savePet(pet11);
-        petController.savePet(pet12);
-        petController.savePet(pet13);
-        petController.savePet(pet14);
+        petController.add(pet1);
+        petController.add(pet2);
+        petController.add(pet3);
+        petController.add(pet4);
+        petController.add(pet5);
+        petController.add(pet6);
+        petController.add(pet7);
+        petController.add(pet8);
+        petController.add(pet9);
+        petController.add(pet10);
+        petController.add(pet11);
+        petController.add(pet12);
+        petController.add(pet13);
+        petController.add(pet14);
 
-        List<Pet> pets = petController.getAllPets();
+        List<Pet> pets = petController.getAll();
 
         System.out.println("\n***** PETS *****");
         display(pets);
