@@ -1,6 +1,7 @@
 package com.example.petclinic.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -20,8 +21,17 @@ public class Visit {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-    // TODO implement many to many
-    //private List<Vet> vets;
+    // Using the Visit as the owner of the relationship
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name="visit_vet",
+            joinColumns= @JoinColumn(name = "visit_id"),
+            inverseJoinColumns = @JoinColumn(name = "vet_id")
+    )
+    private List<Vet> vets = new ArrayList<>();
 
     protected Visit() {
 
@@ -54,6 +64,20 @@ public class Visit {
 
     public void setPet(Pet pet) {
         this.pet = pet;
+    }
+
+    public void addVet(Vet vet) {
+        this.vets.add(vet);
+        vet.getVisits().add(this);
+    }
+
+    public void removeVet(Vet vet) {
+        this.vets.remove(vet);
+        vet.getVisits().remove(this);
+    }
+
+    public List<Vet> getVets() {
+        return this.vets;
     }
 
     @Override
@@ -98,6 +122,16 @@ public class Visit {
 
         public VisitBuilder withDescription(String description) {
             visit.setDescription(description);
+            return this;
+        }
+
+        public VisitBuilder withPet(Pet pet) {
+            visit.setPet(pet);
+            return this;
+        }
+
+        public VisitBuilder withVet(Vet vet) {
+            visit.addVet(vet);
             return this;
         }
 

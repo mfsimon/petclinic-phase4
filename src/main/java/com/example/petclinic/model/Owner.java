@@ -164,6 +164,11 @@ public class Owner {
             return this;
         }
 
+        public OwnerBuilder withPet(Pet pet) {
+            owner.addPet(pet);
+            return this;
+        }
+
         public Owner build() {
             return owner;
         }

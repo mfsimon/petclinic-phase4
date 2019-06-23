@@ -1,6 +1,7 @@
 package com.example.petclinic.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,10 +19,10 @@ public class Vet {
     @Enumerated(EnumType.ORDINAL)
     @CollectionTable(name="specialities")
     @Column(name="speciality")
-    private List<Speciality> specialities;
+    private List<Speciality> specialities = new ArrayList<>();
 
-    // TODO implement many to many
-    //private List<Visit> visits;
+    @ManyToMany(mappedBy = "vets" )
+    private List<Visit> visits = new ArrayList<>();
 
     protected Vet() {
 
@@ -44,8 +45,22 @@ public class Vet {
         return specialities;
     }
 
-    public void setSpecialities(List<Speciality> specialities) {
-        this.specialities = specialities;
+    public void addSpeciality(Speciality speciality) {
+        this.specialities.add(speciality);
+    }
+
+    public void addVisit(Visit visit) {
+        this.visits.add(visit);
+        visit.getVets().add(this);
+    }
+
+    public void removeVisit(Visit visit) {
+        this.visits.remove(visit);
+        visit.getVets().remove(this);
+    }
+
+    public List<Visit> getVisits() {
+        return this.visits;
     }
 
     @Override
@@ -66,7 +81,7 @@ public class Vet {
         final StringBuilder sb = new StringBuilder("Vet{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
-        sb.append(", specialities=").append(specialities);
+        //sb.append(", specialities=").append(specialities);
         sb.append('}');
         return sb.toString();
     }
@@ -88,8 +103,13 @@ public class Vet {
             return this;
         }
 
-        public VetBuilder withSpecialities(List<Speciality> specialities) {
-            vet.setSpecialities(specialities);
+        public VetBuilder withSpeciality(Speciality speciality) {
+            vet.addSpeciality(speciality);
+            return this;
+        }
+
+        public VetBuilder withVisit(Visit visit) {
+            vet.addVisit(visit);
             return this;
         }
 

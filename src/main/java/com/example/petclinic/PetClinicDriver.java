@@ -2,9 +2,9 @@ package com.example.petclinic;
 
 import com.example.petclinic.controller.OwnerController;
 import com.example.petclinic.controller.PetController;
-import com.example.petclinic.model.Owner;
-import com.example.petclinic.model.Pet;
-import com.example.petclinic.model.PetType;
+import com.example.petclinic.controller.VetController;
+import com.example.petclinic.controller.VisitController;
+import com.example.petclinic.model.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -22,6 +22,8 @@ public class PetClinicDriver {
 
     private static OwnerController ownerController;
     private static PetController petController;
+    private static VisitController visitController;
+    private static VetController vetController;
 
     public static void main(String[] args) {
 
@@ -39,6 +41,8 @@ public class PetClinicDriver {
         // The name of the bean is the type of bean (it's name) in camelcase, with the first letter lowercase (by default).
         ownerController = (OwnerController) context.getBean("ownerController");
         petController = (PetController) context.getBean("petController");
+        visitController = (VisitController) context.getBean("visitController");
+        vetController = (VetController) context.getBean("vetController");
 
         // Owner testing - use of builder pattern
         // Builder pattern forces the use of aggregation pattern over composition pattern in Java
@@ -105,8 +109,24 @@ public class PetClinicDriver {
         System.out.println("\nPets for Lisa\n");
         display(petController.getAllPetsForOwner(owner4));
 
-        // TODO add other tests here
+        // ***** Visit *****
+        Visit visit1 = Visit.builder().withDateOfVisit(new Date()).withDescription("Nice Visit!").withPet(pet1).build();
+        Visit visit2 = Visit.builder().withDateOfVisit(new Date()).withDescription("Bad Visit!").withPet(pet2).build();
 
+        visitController.add(visit1);
+        visitController.add(visit2);
+
+        display(visitController.getAll());
+
+        // ***** Vet *****
+        Vet vet1 = Vet.builder().withName("SuperVet").withSpeciality(Speciality.DENTISTRY).withSpeciality(Speciality.SURGERY).build();
+
+        visit1.addVet(vet1);
+
+        vetController.add(vet1);
+        visitController.modify(visit1);
+
+        display(vetController.getAll());
 
     }
 

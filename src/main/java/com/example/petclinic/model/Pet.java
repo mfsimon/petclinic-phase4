@@ -122,7 +122,6 @@ public class Pet {
         return new PetBuilder();
     }
 
-
     public static final class PetBuilder {
         private Pet pet;
 
@@ -152,6 +151,11 @@ public class Pet {
 
         public PetBuilder withOwner(Owner owner) {
             pet.setOwner(owner);
+            return this;
+        }
+
+        public PetBuilder withVisit(Visit visit) {
+            pet.addVisit(visit);
             return this;
         }
 
