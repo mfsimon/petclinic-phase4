@@ -14,9 +14,13 @@ public class Vet {
 
     private String name;
 
+    @ElementCollection(targetClass=Speciality.class)
     @Enumerated(EnumType.ORDINAL)
+    @CollectionTable(name="specialities")
+    @Column(name="speciality")
     private List<Speciality> specialities;
 
+    // TODO implement many to many
     //private List<Visit> visits;
 
     protected Vet() {

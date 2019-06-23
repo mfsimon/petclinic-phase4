@@ -20,7 +20,7 @@ public class Visit {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-
+    // TODO implement many to many
     //private List<Vet> vets;
 
     protected Visit() {

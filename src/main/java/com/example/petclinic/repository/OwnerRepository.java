@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface OwnerRepository extends CrudRepository<Owner, Long> {
 
-    public List<Owner> getOwnerByName();
+    List<Owner> getOwnerByName(String name);
 
 }

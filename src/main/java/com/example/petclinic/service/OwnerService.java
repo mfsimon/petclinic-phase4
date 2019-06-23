@@ -96,6 +96,6 @@ public class OwnerService {
 
 
     public List<Owner> getOwnerByName(String name) {
-        return this.ownerRepository.getOwnerByName();
+        return this.ownerRepository.getOwnerByName(name);
     }
 }
