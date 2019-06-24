@@ -108,11 +108,6 @@ public class Vet {
             return this;
         }
 
-        public VetBuilder withVisit(Visit visit) {
-            vet.addVisit(visit);
-            return this;
-        }
-
         public Vet build() {
             return vet;
         }
