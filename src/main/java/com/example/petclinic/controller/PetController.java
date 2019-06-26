@@ -45,7 +45,6 @@ public class PetController implements BasicController<Pet> {
     public List<Pet> getAll() {
 
         return this.petService.getAll();
-
     }
 
     public List<Pet> getAllPetsForOwner(Owner owner) {
