@@ -132,6 +132,7 @@ public class Visit {
 
         public VisitBuilder withVet(Vet vet) {
             visit.addVet(vet);
+            vet.getVisits().add(visit);
             return this;
         }
 

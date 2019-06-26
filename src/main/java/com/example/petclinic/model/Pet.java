@@ -151,11 +151,13 @@ public class Pet {
 
         public PetBuilder withOwner(Owner owner) {
             pet.setOwner(owner);
+            owner.getPets().add(pet);
             return this;
         }
 
         public PetBuilder withVisit(Visit visit) {
             pet.addVisit(visit);
+            visit.setPet(pet);
             return this;
         }
 

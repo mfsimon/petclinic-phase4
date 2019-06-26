@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -33,12 +34,22 @@ public class PetClinicDriver implements ExitCodeGenerator {
 
         testApp();
 
+        // Lets sleep for a day
+        System.out.println("Zzzz...");
+        try {
+            Thread.sleep(86400000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // part of exit code implementation
         System.exit(SpringApplication.exit(context));
 
     }
 
     private static void testApp() {
+
+        System.out.println();
 
         // Need a reference to the OwnerController to run our tests.
         // We use the context to retrieve managed beans by name.
@@ -48,21 +59,21 @@ public class PetClinicDriver implements ExitCodeGenerator {
         visitController = (VisitController) context.getBean("visitController");
         vetController = (VetController) context.getBean("vetController");
 
-        // Owner testing - use of builder pattern
-        // Builder pattern forces the use of aggregation pattern over composition pattern in Java
+        // Create Owners
         Owner owner1 = Owner.builder().withName("Homer Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
         Owner owner2 = Owner.builder().withName("Marge Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
         Owner owner3 = Owner.builder().withName("Bart Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
         Owner owner4 = Owner.builder().withName("Lisa Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
 
+        // Add Owners
         ownerController.add(owner1);
         ownerController.add(owner2);
         ownerController.add(owner3);
         ownerController.add(owner4);
 
-        List<Owner> owners = ownerController.getAll();
+        display(ownerController.getAll());
 
-        display(owners);
+        // Create Pets
 
         // Pets for Homer
         Pet pet1 = Pet.builder().withName("Strangles").withBirthDate(new Date()).withPetType(PetType.SNAKE).withOwner(owner1).build();
@@ -102,36 +113,58 @@ public class PetClinicDriver implements ExitCodeGenerator {
         petController.add(pet13);
         petController.add(pet14);
 
-        List<Pet> pets = petController.getAll();
+        display(petController.getAll());
 
-        System.out.println("\n***** PETS *****");
-        display(pets);
+        owner1.addPet(pet10);
+        ownerController.modify(owner1);
 
-        System.out.println("\n ***** OWNERS *****");
-        display(owners);
+        System.out.println("\nPets for Homer\n");
+        display(petController.getAllPetsForOwner(owner1));
+
+        System.out.println("\nPets for Marge\n");
+        display(petController.getAllPetsForOwner(owner2));
+
+        System.out.println("\nPets for Bart\n");
+        display(petController.getAllPetsForOwner(owner3));
 
         System.out.println("\nPets for Lisa\n");
         display(petController.getAllPetsForOwner(owner4));
 
-        // ***** Visit *****
+        System.out.println("\nPets named Strangles\n");
+        display(petController.getPetByName("Strangles"));
+
+        // Create Visit
         Visit visit1 = Visit.builder().withDateOfVisit(new Date()).withDescription("Nice Visit!").withPet(pet1).build();
         Visit visit2 = Visit.builder().withDateOfVisit(new Date()).withDescription("Bad Visit!").withPet(pet2).build();
+        Visit visit3 = Visit.builder().withDateOfVisit(new Date()).withDescription("Bad Visit!").withPet(pet3).build();
+        Visit visit4 = Visit.builder().withDateOfVisit(new Date()).withDescription("Bad Visit!").withPet(pet3).build();
 
         visitController.add(visit1);
         visitController.add(visit2);
+        visitController.add(visit3);
+        visitController.add(visit4);
 
+        System.out.println("\n ***** Visits ***** \n");
         display(visitController.getAll());
 
         // ***** Vet *****
-        Vet vet1 = Vet.builder().withName("SuperVet").withSpeciality(Speciality.DENTISTRY).withSpeciality(Speciality.SURGERY).build();
-
-        visit1.addVet(vet1);
+        Vet vet1 = Vet.builder().withName("SuperVet").withSpeciality(Speciality.DENTISTRY).withSpeciality(Speciality.DENTISTRY).withSpeciality(Speciality.SURGERY).withVisit(visit1).build();
+        Vet vet2 = Vet.builder().withName("SuperDuperVet").withSpeciality(Speciality.DENTISTRY).withSpeciality(Speciality.SURGERY).withSpeciality(Speciality.RADIOLOGY).withVisit(visit1).build();
+        Vet vet3 = Vet.builder().withName("OutstandingVet").withSpeciality(Speciality.DENTISTRY).withSpeciality(Speciality.SURGERY).withVisit(visit4).withVisit(visit3).withVisit(visit2).build();
 
         vetController.add(vet1);
-        visitController.modify(visit1);
+        vetController.add(vet2);
+        vetController.add(vet3);
 
+        visitController.modify(visit1);
+        visitController.modify(visit2);
+        visitController.modify(visit3);
+        visitController.modify(visit4);
+
+        System.out.println("\n ***** Vets ***** \n");
         display(vetController.getAll());
 
+        System.out.println("Done with tests!");
     }
 
     private static void display(Object obj) {

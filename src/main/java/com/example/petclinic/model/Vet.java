@@ -21,7 +21,7 @@ public class Vet {
     @Column(name="speciality")
     private List<Speciality> specialities = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "vets" )
+    @ManyToMany(mappedBy = "vets")
     private List<Visit> visits = new ArrayList<>();
 
     protected Vet() {
@@ -105,6 +105,12 @@ public class Vet {
 
         public VetBuilder withSpeciality(Speciality speciality) {
             vet.addSpeciality(speciality);
+            return this;
+        }
+
+        public VetBuilder withVisit(Visit visit) {
+            vet.addVisit(visit);
+            visit.getVets().add(vet);
             return this;
         }
 
