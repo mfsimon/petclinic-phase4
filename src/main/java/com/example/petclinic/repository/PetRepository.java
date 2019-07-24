@@ -8,8 +8,4 @@ import java.util.List;
 
 public interface PetRepository extends CrudRepository<Pet, Long> {
 
-    List<Pet> getPetsByOwner(Owner owner);
-
-    List<Pet> getPetByName(String name);
-
 }

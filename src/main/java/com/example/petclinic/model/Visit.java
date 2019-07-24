@@ -27,8 +27,8 @@ public class Visit {
             CascadeType.MERGE
     })
     @JoinTable(
-            name="visit_vet",
-            joinColumns= @JoinColumn(name = "visit_id"),
+            name = "visit_vet",
+            joinColumns = @JoinColumn(name = "visit_id"),
             inverseJoinColumns = @JoinColumn(name = "vet_id")
     )
     private List<Vet> vets = new ArrayList<>();
