@@ -58,22 +58,63 @@ public class Visit {
         this.description = description;
     }
 
-    public Pet getPet() {
-        return pet;
+    // Update relationship between this Visit and a Pet
+    public void addPet(Pet pet) {
+
+        addPet(pet, true);
     }
 
-    public void setPet(Pet pet) {
+    public void addPet(Pet pet, Boolean updateRelationship) {
+
         this.pet = pet;
+        if (updateRelationship) {
+            pet.addVisit(this, false);
+        }
     }
 
+    public void removePet(Pet pet) {
+
+        removePet(pet, true);
+    }
+
+    public void removePet(Pet pet, Boolean updateRelationship) {
+
+        this.pet = null;
+        if (updateRelationship) {
+            pet.removeVisit(this, false);
+        }
+
+    }
+
+    // Update relationship between this Visit and Vet
     public void addVet(Vet vet) {
+
+        addVet(vet, true);
+    }
+
+    public void addVet(Vet vet, Boolean updateRelationship) {
+
         this.vets.add(vet);
-        vet.getVisits().add(this);
+        if (updateRelationship) {
+            vet.addVisit(this, false);
+        }
     }
 
     public void removeVet(Vet vet) {
+
+        removeVet(vet, true);
+    }
+
+    public void removeVet(Vet vet, Boolean updateRelationship) {
+
         this.vets.remove(vet);
-        vet.getVisits().remove(this);
+        if(updateRelationship) {
+            vet.removeVisit(this, false);
+        }
+    }
+
+    public Pet getPet() {
+        return pet;
     }
 
     public List<Vet> getVets() {
@@ -126,7 +167,7 @@ public class Visit {
         }
 
         public VisitBuilder withPet(Pet pet) {
-            visit.setPet(pet);
+            visit.addPet(pet);
             return this;
         }
 

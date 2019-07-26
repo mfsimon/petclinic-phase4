@@ -1,6 +1,5 @@
 package com.example.petclinic.controller;
 
-import com.example.petclinic.model.Owner;
 import com.example.petclinic.model.Pet;
 import com.example.petclinic.service.PetService;
 import org.springframework.stereotype.Controller;
@@ -47,13 +46,5 @@ public class PetController implements BasicController<Pet> {
         return this.petService.getAll();
     }
 
-    public List<Pet> getAllPetsForOwner(Owner owner) {
 
-        return this.petService.getAllPetsForOwner(owner);
-    }
-
-    public List<Pet> getPetByName(String name) {
-
-        return this.petService.getPetByName(name);
-    }
 }

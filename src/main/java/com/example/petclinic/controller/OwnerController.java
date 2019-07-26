@@ -2,11 +2,14 @@ package com.example.petclinic.controller;
 
 import com.example.petclinic.model.Owner;
 import com.example.petclinic.service.OwnerService;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("owner")
 public class OwnerController implements BasicController<Owner> {
 
     private OwnerService ownerService;
@@ -17,33 +20,53 @@ public class OwnerController implements BasicController<Owner> {
     }
 
     @Override
-    public Owner add(Owner owner) {
+    @PostMapping(value = "addOwner", produces = "application/json")
+    public Owner add(@RequestBody Owner owner) {
 
         return this.ownerService.add(owner);
     }
 
     @Override
-    public Owner get(Long id) {
+    @GetMapping(value = "getById/{id}", produces = "application/json")
+    public Owner get(@PathVariable("id") Long id) {
 
-        return this.ownerService.get(id);
+        // Demonstrates exception handling with ResponseStatusException exception
+        Owner owner = null;
+        try {
+            owner = this.ownerService.get(id);
+        } catch (Exception exc) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Owner [" + id + "] Not Found", exc);
+        }
+        return owner;
     }
 
     @Override
-    public Owner modify(Owner owner) {
+    @PutMapping(value = "updateOwner", produces = "application/json")
+    public Owner modify(@RequestBody Owner owner) {
 
         return this.ownerService.modify(owner);
     }
 
     @Override
-    public boolean delete(Owner owner) {
+    @RequestMapping(value = "deleteOwner", method = {RequestMethod.DELETE}, produces = "application/json")
+    public boolean delete(@RequestBody Owner owner) {
 
         return this.ownerService.delete(owner);
     }
 
     @Override
+    @GetMapping(value = "getAllOwners", produces = "application/json")
     public List<Owner> getAll() {
 
-        return this.ownerService.getAll();
+        List<Owner> all = this.ownerService.getAll();
+        return all;
+    }
+
+    @GetMapping(value = "getOwnerByName", produces = "application/json")
+    public List<Owner> getOwnerByName(@RequestBody Owner owner) {
+
+        return this.ownerService.getOwnerByName(owner);
     }
 
 }

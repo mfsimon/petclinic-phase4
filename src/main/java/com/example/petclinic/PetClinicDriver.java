@@ -13,9 +13,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.util.Date;
 import java.util.List;
 
-/*
-Entry Point
- */
 @SpringBootApplication
 public class PetClinicDriver implements ExitCodeGenerator {
 
@@ -116,21 +113,6 @@ public class PetClinicDriver implements ExitCodeGenerator {
 
         owner1.addPet(pet10);
         ownerController.modify(owner1);
-
-        System.out.println("\nPets for Homer\n");
-        display(petController.getAllPetsForOwner(owner1));
-
-        System.out.println("\nPets for Marge\n");
-        display(petController.getAllPetsForOwner(owner2));
-
-        System.out.println("\nPets for Bart\n");
-        display(petController.getAllPetsForOwner(owner3));
-
-        System.out.println("\nPets for Lisa\n");
-        display(petController.getAllPetsForOwner(owner4));
-
-        System.out.println("\nPets named Strangles\n");
-        display(petController.getPetByName("Strangles"));
 
         // Create Visit
         Visit visit1 = Visit.builder().withDateOfVisit(new Date()).withDescription("Nice Visit!").withPet(pet1).build();

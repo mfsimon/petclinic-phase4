@@ -55,13 +55,4 @@ public class PetService implements BasicService<Pet> {
         return (List<Pet>) petRepository.findAll();
     }
 
-    public List<Pet> getAllPetsForOwner(Owner owner) {
-
-        return this.petRepository.getPetsByOwner(owner);
-    }
-
-    public List<Pet> getPetByName(String name) {
-
-        return this.petRepository.getPetByName(name);
-    }
 }

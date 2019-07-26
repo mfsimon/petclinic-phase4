@@ -49,17 +49,34 @@ public class Vet {
         this.specialities.add(speciality);
     }
 
+    // Update relationship between this Vet and visits
     public void addVisit(Visit visit) {
+
+        addVisit(visit, true);
+    }
+
+    public void addVisit(Visit visit, Boolean updateRelationship) {
+
         this.visits.add(visit);
-        visit.getVets().add(this);
+        if(updateRelationship) {
+            visit.addVet(this, false);
+        }
     }
 
     public void removeVisit(Visit visit) {
+        removeVisit(visit, true);
+    }
+
+    public void removeVisit(Visit visit, Boolean updateRelationship) {
+
         this.visits.remove(visit);
-        visit.getVets().remove(this);
+        if(updateRelationship) {
+            visit.removeVet(this, false);
+        }
     }
 
     public List<Visit> getVisits() {
+
         return this.visits;
     }
 
