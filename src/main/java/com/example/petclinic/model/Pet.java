@@ -13,6 +13,7 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
     private Date birthDate;
     private PetType petType;
@@ -73,24 +74,68 @@ public class Pet {
         this.petType = petType;
     }
 
+    // Update the relationship between Owner and Pet when adding an Owner
+    public void addOwner(Owner owner) {
+
+        addOwner(owner, true);
+    }
+
+    public void addOwner(Owner owner, Boolean updateRelationship) {
+
+        this.owner = owner;
+        if (updateRelationship) {
+            owner.addPet(this, false);
+        }
+    }
+
+    // Update the relationship between Owner and Pet when removing an Owner
+    public void removeOwner(Owner owner) {
+
+        removeOwner(owner, true);
+    }
+
+    public void removeOwner(Owner owner, Boolean updateRelationship) {
+
+        this.owner = null;
+        if (updateRelationship) {
+            owner.removePet(this, false);
+        }
+    }
+
+    // Update the relationship between Visit and Pet when adding a Visit
+    public void addVisit(Visit visit) {
+
+        addVisit(visit, true);
+    }
+
+    public void addVisit(Visit visit, Boolean updateRelationship) {
+
+        visits.add(visit);
+        if (updateRelationship) {
+            visit.addPet(this, false);
+        }
+    }
+
+    // Update the relationship between Visit and Pet when removing a Visit
+    public void removeVisit(Visit visit) {
+
+        removeVisit(visit, true);
+    }
+
+    public void removeVisit(Visit visit, Boolean updateRelationship) {
+
+        visits.remove(visit);
+        if (updateRelationship) {
+            visit.removePet(this, false);
+        }
+    }
+
     public Owner getOwner() {
         return owner;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    // This is needed to update the relationship between Visit and Pet when adding a Visit
-    public void addVisit(Visit visit) {
-        visits.add(visit);
-        visit.setPet(this);
-    }
-
-    // This is needed to update the relationship between Visit and Pet when removing a Visit
-    public void removeVisit(Visit visit) {
-        visits.remove(visit);
-        visit.setPet(null);
+    public List<Visit> getVisits() {
+        return this.visits;
     }
 
     // only include id field when generating equals and hashcode
@@ -150,14 +195,14 @@ public class Pet {
         }
 
         public PetBuilder withOwner(Owner owner) {
-            pet.setOwner(owner);
+            pet.addOwner(owner);
             owner.getPets().add(pet);
             return this;
         }
 
         public PetBuilder withVisit(Visit visit) {
             pet.addVisit(visit);
-            visit.setPet(pet);
+            visit.addPet(pet);
             return this;
         }
 

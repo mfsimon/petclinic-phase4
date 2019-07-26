@@ -1,5 +1,7 @@
 package com.example.petclinic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ public class Owner {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"owner", "hibernateLazyInitializer", "handler"})
     private List<Pet> pets = new ArrayList<>();
 
     protected Owner() {
@@ -83,16 +86,32 @@ public class Owner {
         this.phoneNumber = phoneNumber;
     }
 
-    // This is needed to update the relationship between Pet and Owner when adding a Pet
+    // Update the relationship between Pet and Owner when adding a Pet
     public void addPet(Pet pet) {
-        pets.add(pet);
-        pet.setOwner(this);
+
+        addPet(pet, true);
     }
 
-    // This is needed to update the relationship between Pet and Owner when removing a Pet
+    public void addPet(Pet pet, Boolean updateRelationship) {
+
+        pets.add(pet);
+        if(updateRelationship) {
+            pet.addOwner(this, false);
+        }
+    }
+
+    // Update the relationship between Pet and Owner when removing a Pet
     public void removePet(Pet pet) {
+
+        removePet(pet, true);
+    }
+
+    public void removePet(Pet pet, Boolean updateRelationship) {
+
         pets.remove(pet);
-        pet.setOwner(null);
+        if (updateRelationship) {
+            pet.removeOwner(this, false);
+        }
     }
 
     public List<Pet> getPets() {

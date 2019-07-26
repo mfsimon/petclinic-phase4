@@ -50,3 +50,4 @@ The following guides illustrate how to use some features and patterns applied in
 * [REST Tutorials (Baeldung)](https://www.baeldung.com/rest-with-spring-series)
 * [Building a REST Client](https://spring.io/guides/gs/consuming-rest/)
 * [Building a REST Server](https://spring.io/guides/gs/rest-service/)
+* [Adding Swagger 2 to Your RESTful Service](https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api)
