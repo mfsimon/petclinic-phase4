@@ -37,13 +37,25 @@ In this phase of the project, we convert the code from phase 3 to a RESTful serv
 * Test your endpoints with Postman
 
 ##### Activity 4
+###### Infinite Recursion
+* There's an issue with the way the JSON data is being marshalled.
+* Look at the results when you navigate to `http://localhost:8080/owner/getAllOwners`
+* This is caused by the infinitely recursive relationship between model objects.
+* Research the `@JsonIgnoreProperties` annotation to see how this can be handled.
+* Add the `@JsonIgnoreProperties` annotation to each model's association fields (the fields that relate to other model objects) with the proper attributes.
+* See the Owner model for an example.
+
+##### Activity 5
 ###### Playing With a REST Client
-* Test your endpoints out with your REST client.
-  - You'll need to copy your data models over to your REST client.
-  - You'll have to modify your REST client code along with the RestTemplate and/or it's parameters to test the endpoints.
-  - You do not need to get all endpoints tested at the same time.
+* Test your endpoints out with a REST client.
+  - Download and use the following REST client:
+  [Simple REST Client](https://github.com/AcademyNATrainers/petclinic-phase4-client)
+ 
+* You'll have to modify your REST client code along with the RestTemplate and/or it's parameters to test each of the endpoints.
+* You do NOT need to get all endpoints tested at the same time.  Test them one at a time by changing RestTemplate methods and/or parameters.
+* You'll need to figure out which RestTemplate method is needed to test each endpoint.
   - [This](https://www.baeldung.com/rest-template) tutorial gives some more detailed info about how to use a RestTemplate.  
-  - Remember, there are more APIs to use with a RestTemplate than those shown.
+* Remember, there are more APIs to use with a RestTemplate than those shown.
   - [RestTemplate JavaDoc](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html)
 
 #### Frameworks Used

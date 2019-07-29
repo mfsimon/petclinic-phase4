@@ -30,17 +30,6 @@ public class PetClinicDriver implements ExitCodeGenerator {
 
         testApp();
 
-        // Lets sleep for a day
-        System.out.println("Zzzz...");
-        try {
-            Thread.sleep(86400000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // part of exit code implementation
-        System.exit(SpringApplication.exit(context));
-
     }
 
     private static void testApp() {
@@ -145,7 +134,7 @@ public class PetClinicDriver implements ExitCodeGenerator {
         System.out.println("\n ***** Vets ***** \n");
         display(vetController.getAll());
 
-        System.out.println("Done with tests!");
+        System.out.println("Done adding data!");
     }
 
     private static void display(Object obj) {
