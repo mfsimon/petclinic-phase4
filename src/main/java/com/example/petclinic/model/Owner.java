@@ -29,7 +29,7 @@ public class Owner {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("owner")
+    @JsonIgnoreProperties({"owner","visits"})
     private List<Pet> pets = new ArrayList<>();
 
     protected Owner() {
