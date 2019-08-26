@@ -8,6 +8,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class OwnerControllerIntegrationTests implements ApplicationContextAware {
 
     private static ApplicationContext context;
@@ -27,8 +29,8 @@ public class OwnerControllerIntegrationTests implements ApplicationContextAware 
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
         context = applicationContext;
-        controller = (OwnerController) context.getBean("ownerController");
     }
 
     @Before
@@ -38,7 +40,7 @@ public class OwnerControllerIntegrationTests implements ApplicationContextAware 
         owner2 = Owner.builder().withId(2L).withName("Marge Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
         owner3 = Owner.builder().withId(3L).withName("Bart Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
         owner4 = Owner.builder().withId(4L).withName("Lisa Simpson").withAddress("742 Evergreen Terrace").withCity("Springfield").withPhoneNumber("9395550113").build();
-
+        controller = (OwnerController) context.getBean("ownerController");
     }
 
     @Test
@@ -93,8 +95,6 @@ public class OwnerControllerIntegrationTests implements ApplicationContextAware 
 
         // assert
         assertNull(actual);
-
-
 
     }
 
