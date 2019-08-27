@@ -57,6 +57,6 @@ public class OwnerService implements BasicService<Owner> {
 
     public List<Owner> getOwnerByName(Owner owner) {
 
-        return this.ownerRepository.findOwnerByName(owner);
+        return this.ownerRepository.findOwnerByName(owner.getName());
     }
 }

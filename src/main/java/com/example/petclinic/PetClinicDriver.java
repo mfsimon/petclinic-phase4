@@ -58,6 +58,8 @@ public class PetClinicDriver implements ExitCodeGenerator {
 
         display(ownerController.getAll());
 
+        display(ownerController.getOwnerByName(owner4));
+
         // Create Pets
 
         // Pets for Homer

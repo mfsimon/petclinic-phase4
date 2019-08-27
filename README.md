@@ -101,6 +101,13 @@ In this phase of the project, we convert the code from phase 3 to a RESTful serv
 * Create a custom White Label error page in your REST service by referencing the tutorial below.
 * [Customize Whitelabel Error Page](https://www.baeldung.com/spring-boot-custom-error-page)
 
+##### Bonus Activity 4 (hard)
+###### Adding Spring Security
+* Add Spring Security to your REST endpoints by uncommenting the Spring Security dependency in the POM.xml file.
+* Add very simple Basic Authentication to your endpoints.
+* [Spring Boot Security REST Basic Authentication Example](https://howtodoinjava.com/spring-boot2/security-rest-basic-auth-example/)
+* [Spring Security Basic Authentication](https://www.baeldung.com/spring-security-basic-authentication)
+
 #### Notes
 * Dependencies have already been added for you in the pom.xml file for this phase.  You shouldn't have to modify or add anything to your build file (pom.xml), but feel free to as needed.
 

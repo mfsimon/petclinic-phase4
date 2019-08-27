@@ -1,9 +1,7 @@
 package com.example.petclinic.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity(name = "Vet")
 @Table(name = "vet")
@@ -22,7 +20,7 @@ public class Vet {
     private List<Speciality> specialities = new ArrayList<>();
 
     @ManyToMany(mappedBy = "vets")
-    private List<Visit> visits = new ArrayList<>();
+    private Set<Visit> visits = new HashSet<>();
 
     protected Vet() {
 
@@ -83,7 +81,7 @@ public class Vet {
         }
     }
 
-    public List<Visit> getVisits() {
+    public Set<Visit> getVisits() {
 
         return this.visits;
     }
