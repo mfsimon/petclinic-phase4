@@ -2,11 +2,14 @@ package com.example.petclinic.controller;
 
 import com.example.petclinic.model.Pet;
 import com.example.petclinic.service.PetService;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/pet")
 public class PetController implements BasicController<Pet> {
 
     private PetService petService;
@@ -17,34 +20,47 @@ public class PetController implements BasicController<Pet> {
     }
 
     @Override
-    public Pet add(Pet pet) {
+    @PostMapping(value = "addPet", produces = "application/json")
+    public Pet add(@RequestBody Pet pet) {
 
         return this.petService.add(pet);
     }
 
     @Override
-    public Pet get(Long id) {
+    @GetMapping(value = "getById/{id}", produces = "application/json")
+    public Pet get(@PathVariable("id") Long id) {
 
-        return this.petService.get(id);
+        // Demonstrates exception handling with ResponseStatusException exception
+        Pet pet = null;
+        try {
+            pet = this.petService.get(id);
+        } catch (Exception exc) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Pet [" + id + "] Not Found", exc);
+        }
+        return pet;
     }
 
     @Override
-    public Pet modify(Pet pet) {
+    @PutMapping(value = "updatePet", produces = "application/json")
+    public Pet modify(@RequestBody Pet pet) {
 
         return this.petService.modify(pet);
     }
 
     @Override
-    public boolean delete(Pet pet) {
+    @RequestMapping(value = "deletePet", method = {RequestMethod.DELETE}, produces = "application/json")
+    public boolean delete(@RequestBody Pet pet) {
 
         return this.petService.delete(pet);
     }
 
     @Override
+    @GetMapping(value = "getAllPets", produces = "application/json")
     public List<Pet> getAll() {
 
-        return this.petService.getAll();
+        List<Pet> all = this.petService.getAll();
+        return all;
     }
-
 
 }

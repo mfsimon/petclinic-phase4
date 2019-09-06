@@ -9,7 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("owner")
+@RequestMapping("/owner")
 public class OwnerController implements BasicController<Owner> {
 
     private OwnerService ownerService;
@@ -20,7 +20,7 @@ public class OwnerController implements BasicController<Owner> {
     }
 
     @Override
-    @PostMapping(value = "addOwner", produces = "application/json")
+    @PostMapping(value = "/addOwner", produces = "application/json")
     public Owner add(@RequestBody Owner owner) {
 
         return this.ownerService.add(owner);
@@ -48,6 +48,7 @@ public class OwnerController implements BasicController<Owner> {
         return this.ownerService.modify(owner);
     }
 
+    //@DeleteMapping(value = "deleteOwner", produces = "application/json")
     @Override
     @RequestMapping(value = "deleteOwner", method = {RequestMethod.DELETE}, produces = "application/json")
     public boolean delete(@RequestBody Owner owner) {
